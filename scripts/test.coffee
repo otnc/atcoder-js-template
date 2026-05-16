@@ -1,6 +1,7 @@
 { existsSync, readdirSync, statSync, readFileSync } = require 'fs'
 { join } = require 'path'
 { spawnSync } = require 'child_process'
+chalk = require 'chalk'
 dayjs    = require 'dayjs'
 utc      = require 'dayjs/plugin/utc'
 timezone = require 'dayjs/plugin/timezone'
@@ -59,7 +60,20 @@ if mockFiles.length
     mockPath = join mockDir, mockFile
     console.log "--- Mock #{num}: #{mockPath} ---"
     input = readFileSync mockPath
-    spawnSync 'node', [filePath], { input, stdio: ['pipe', 'inherit', 'inherit'] }
+    ran = spawnSync 'node', [filePath], { input, stdio: ['pipe', 'pipe', 'inherit'], encoding: 'utf-8' }
+    process.stdout.write ran.stdout if ran.stdout
+    resultFile = join mockDir, "#{num}._result.txt"
+    if existsSync resultFile
+      console.log ''
+      normalize = (s) -> s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trimEnd()
+      expected = normalize readFileSync resultFile, 'utf-8'
+      actual   = normalize ran.stdout ? ''
+      if actual is expected
+        console.log chalk.green 'Correct'
+      else
+        console.log chalk.red 'Incorrect'
+        console.log "  Expected: #{expected.replace /\n/g, '\\n'}"
+        console.log "  Actual:   #{actual.replace /\n/g, '\\n'}"
     console.log ''
   process.exit 0
 else

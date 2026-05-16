@@ -8,6 +8,8 @@
     "test": "coffee scripts/test.coffee",
     "mock": "coffee scripts/mock.coffee",
     "mock:delete": "coffee scripts/mock-delete.coffee",
+    "result": "coffee scripts/result.coffee",
+    "result:delete": "coffee scripts/result-delete.coffee",
     "format": "coffee scripts/format.coffee",
     "ai": "coffee scripts/ai.coffee",
     "nvm": "coffee scripts/nvm.coffee",
@@ -28,7 +30,7 @@
   },
   "type": "commonjs",
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.2",
     "coffeescript": "^2.7.0",
     "commander": "^14.0.3",
     "dayjs": "^1.11.20",

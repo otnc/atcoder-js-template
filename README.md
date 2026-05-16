@@ -18,10 +18,12 @@ pnpm install
 ```
 q/
   YYYYMMDD/           # コンテスト日付ごとのディレクトリ（JST）
-    mock/             # モック入力ファイル
+    mock/             # モック入力・期待出力ファイル
       a/
-        1.txt
+        1.txt          # モック入力
+        1._result.txt  # 期待出力
         2.txt
+        2._result.txt
         ...
       b/
         1.txt
@@ -30,19 +32,21 @@ q/
     b.js
     ...
 scripts/
-  start.coffee        # ファイル生成スクリプト
-  test.coffee         # 実行スクリプト
-  mock.coffee         # モック入力保存
-  mock-delete.coffee  # モック入力削除
-  format.coffee       # Prettier フォーマット
-  nvm.coffee          # Node バージョン切り替え（OS 判定ディスパッチャー）
-  nvm.ps1             # Windows 用
-  nvm.sh              # Unix/macOS 用
-  nvm-restore.coffee  # バージョン復元（OS 判定ディスパッチャー）
-  nvm-restore.ps1     # Windows 用
-  nvm-restore.sh      # Unix/macOS 用
-template.js           # 問題ファイルのテンプレート
-.nvmrc                # 使用する Node.js バージョン
+  start.coffee         # ファイル生成スクリプト
+  test.coffee          # 実行スクリプト
+  mock.coffee          # モック入力保存
+  mock-delete.coffee   # モック入力削除
+  result.coffee        # 期待出力保存
+  result-delete.coffee # 期待出力削除
+  format.coffee        # Prettier フォーマット
+  nvm.coffee           # Node バージョン切り替え（OS 判定ディスパッチャー）
+  nvm.ps1              # Windows 用
+  nvm.sh               # Unix/macOS 用
+  nvm-restore.coffee   # バージョン復元（OS 判定ディスパッチャー）
+  nvm-restore.ps1      # Windows 用
+  nvm-restore.sh       # Unix/macOS 用
+template.js            # 問題ファイルのテンプレート
+.nvmrc                 # 使用する Node.js バージョン
 ```
 
 ## 使い方
@@ -77,18 +81,32 @@ pnpm test <問題番号> [日付]
 
 指定した問題ファイルを実行します。日付を省略すると、今日（JST）のディレクトリを優先し、なければ最新のものを使用します。
 
-モックファイルが存在する場合は stdin の代わりに番号順で自動実行します。
+モックファイルが存在する場合は stdin の代わりに番号順で自動実行します。対応する期待出力ファイル（`<番号>._result.txt`）が存在すれば、実行後に自動比較して結果を表示します。
 
 ```bash
 pnpm test a
 # Running: D:\...\q\20260516\a.js
 # (Input: ^Z + Enter to execute)   ← モックなしの場合
 
-# モックありの場合
+# モックあり・期待出力なしの場合
 # Running: D:\...\q\20260516\a.js
 # Mocks: 2 file(s)
 # --- Mock 1: ...\mock\a\1.txt ---
+# 8
+#
 # --- Mock 2: ...\mock\a\2.txt ---
+# 15
+
+# モックあり・期待出力ありの場合
+# --- Mock 1: ...\mock\a\1.txt ---
+# 8
+# Correct
+#
+# --- Mock 2: ...\mock\a\2.txt ---
+# 9
+# Incorrect
+#   Expected: 15
+#   Actual:   9
 ```
 
 ```bash
@@ -110,6 +128,21 @@ pnpm mock:delete <問題番号> <番号> [日付] # 削除
 pnpm mock a 1        # 入力して ^Z + Enter で q/YYYYMMDD/mock/a/1.txt に保存
 pnpm mock a 2        # 2つ目のモック
 pnpm mock:delete a 1 # 削除
+```
+
+### 期待出力の管理
+
+```bash
+pnpm result <問題番号> <番号> [日付]        # stdin を保存（上書き可）
+pnpm result:delete <問題番号> <番号> [日付] # 削除
+```
+
+期待出力を `q/YYYYMMDD/mock/<問題番号>/<番号>._result.txt` に保存します。
+`pnpm test` 実行時に対応するモック番号の結果と自動比較されます。
+
+```bash
+pnpm result a 1        # 入力して ^Z + Enter で q/YYYYMMDD/mock/a/1._result.txt に保存
+pnpm result:delete a 1 # 削除
 ```
 
 ### フォーマット
