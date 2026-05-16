@@ -2,6 +2,13 @@
 
 AtCoder の問題を JavaScript (Node.js) で解くためのヘルパーツールです。
 
+## 環境 / 事前準備
+
+- Windows / MacOS / Linux
+  - Node.js v22.19.0 以上が利用可能な環境
+- [AtCoder](https://atcoder.jp/) への登録をする。
+- [nvm-sh/nvm](https://github.com/nvm-sh/nvm) もしくは [corebutler/nvm-windows](https://github.com/coreybutler/nvm-windows) をインストール後、どのバージョンでもいいので Node.js および npm を使用できるようにする。
+
 ## セットアップ
 
 ```bash
