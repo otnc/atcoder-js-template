@@ -1,0 +1,28 @@
+{
+  "name": "atcoder-js-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "coffee scripts/start.coffee",
+    "test": "coffee scripts/test.coffee",
+    "ai": "coffee scripts/ai.coffee"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.1.2",
+      "onFail": "download"
+    }
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "coffeescript": "^2.7.0",
+    "commander": "^14.0.3",
+    "dayjs": "^1.11.20"
+  }
+}
