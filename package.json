@@ -6,6 +6,9 @@
   "scripts": {
     "start": "coffee scripts/start.coffee",
     "test": "coffee scripts/test.coffee",
+    "mock": "coffee scripts/mock.coffee",
+    "mock:delete": "coffee scripts/mock-delete.coffee",
+    "format": "coffee scripts/format.coffee",
     "ai": "coffee scripts/ai.coffee",
     "nvm": "coffee scripts/nvm.coffee",
     "nvm:restore": "coffee scripts/nvm-restore.coffee"
@@ -28,6 +31,7 @@
     "chalk": "^3.0.0",
     "coffeescript": "^2.7.0",
     "commander": "^14.0.3",
-    "dayjs": "^1.11.20"
+    "dayjs": "^1.11.20",
+    "prettier": "^3.8.3"
   }
 }
