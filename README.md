@@ -5,7 +5,9 @@ AtCoder の問題を JavaScript で解くためのヘルパーツールです。
 ## セットアップ
 
 ```bash
+npm -g install pnpm@11 # pnpm がインストールされていない場合
 pnpm nvm       # .nvmrc のバージョンに切り替え（未インストールなら自動インストール）
+npm -g install pnpm@11 # 切り替え後に pnpm がインストールされていない場合
 pnpm install
 ```
 
