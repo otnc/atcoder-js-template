@@ -1,6 +1,6 @@
-# AtCoder JavaScript Helper
+# AtCoder Node.js Helper
 
-AtCoder の問題を JavaScript で解くためのヘルパーツールです。
+AtCoder の問題を JavaScript (Node.js) で解くためのヘルパーツールです。
 
 ## セットアップ
 
